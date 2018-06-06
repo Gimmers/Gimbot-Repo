@@ -71,8 +71,11 @@ client.on('message', message => {
 		command.execute(message, args);
 	}
 	catch (error) {
+		const guild = message.guild;
+		const botMaker = guild.ownerID;
+
 		console.error(error);
-		message.reply('there was an error trying to execute that command!');
+		message.reply(`There was an error trying to execute that command! <@${botMaker}> please fix.`);
 	}
 });
 

@@ -18,6 +18,7 @@
   "homepage": "https://github.com/Gimmers/Gimbot-Repo#readme",
   "dependencies": {
     "discord.js": "^11.3.2",
+    "random-frog": "^2.0.0",
     "sequelize": "^4.37.10",
     "sqlite3": "^4.0.0"
   }
