@@ -1,5 +1,3 @@
-const { prefix } = require('../config.json');
-
 module.exports = {
 	name: 'help',
 	description: 'List all of Gimbot\'s commands or info about a specific command.',
@@ -24,6 +22,8 @@ module.exports = {
 
 			if (command.description) message.channel.send(`**Description:** ${command.description}`);
 			if (command.aliases) message.channel.send(`**Aliases:** ${command.aliases.join(', ')}`);
+			if (command.cooldown) message.channel.send(`**Cooldown:** ${command.cooldown}`);
+			if (command.guildOnly) message.channel.send(`**Server only:** ${command.guildOnly}`);
 
 			data.push(`**Cooldown:** ${command.cooldown || 3} second(s)`);
 		}
