@@ -14,6 +14,6 @@ module.exports = {
 	cooldown: 5,
 	execute(message, args) {
 		const randomFrog = frogs[Math.floor(Math.random() * frogs.length)];
-		message.channel.send('Cats suck, here\'s a frog!', { files: [randomFrog] });
+		message.channel.send('JK cats suck, here\'s a frog!', { files: [randomFrog] });
 	},
 };
