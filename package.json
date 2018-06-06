@@ -1,0 +1,24 @@
+{
+  "name": "gimbot",
+  "version": "1.0.0",
+  "description": "A bot created for practice, fun, server administration and random garbage.",
+  "main": "index.js",
+  "scripts": {
+    "test": "!test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Gimmers/Gimbot-Repo.git"
+  },
+  "author": "gimmers",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Gimmers/Gimbot-Repo/issues"
+  },
+  "homepage": "https://github.com/Gimmers/Gimbot-Repo#readme",
+  "dependencies": {
+    "discord.js": "^11.3.2",
+    "sequelize": "^4.37.10",
+    "sqlite3": "^4.0.0"
+  }
+}
