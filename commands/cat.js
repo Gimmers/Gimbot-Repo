@@ -10,7 +10,7 @@ const frogs = [frog1, frog2, frog3, frog4, frog5, frog6, frog7];
 
 module.exports = {
 	name: 'cat',
-	description: 'A celebration of cats in all their feline glory',
+	description: 'A celebration of cats in all their feline glory!',
 	cooldown: 5,
 	execute(message, args) {
 		const randomFrog = frogs[Math.floor(Math.random() * frogs.length)];
