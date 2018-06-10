@@ -1,8 +1,6 @@
-const botMakerID = 129527614602870784;
-
 const fs = require('fs');
 const Discord = require('discord.js');
-const { prefix, token } = require('./config.json');
+const { prefix, token, botMakerID } = require('./config.json');
 
 const client = new Discord.Client();
 client.commands = new Discord.Collection();

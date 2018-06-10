@@ -6,6 +6,7 @@ let player_exists = false;
 module.exports = {
 	name: 'rpg-join',
 	description: 'Join the GimmeRPG on this server',
+	aliases: ['rpgjoin'],
   guildOnly: true,
   cooldown: 5,
 

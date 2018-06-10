@@ -1,10 +1,11 @@
 const sqlite3 = require('sqlite3').verbose();
 
-let name, cost, shop_name_string, shop_cost_string;
+let name, cost, type, shop_name_string, shop_cost_string/*, shop_type_string*/;
 
 module.exports = {
 	name: 'rpg-shop',
 	description: 'See what\'s in the GimmeRPG shop',
+	aliases: ['rpgshop'],
 	cooldown: 5,
 	execute(message, args) {
 
@@ -22,6 +23,7 @@ module.exports = {
     function GetAndDisplayShop() {
       shop_name_string = ' ';
       shop_cost_string = ' ';
+      shop_type_string = ' ';
       let i;
       for (i = 0; i < 9; i++) {
         db.get('SELECT * FROM shop WHERE ITEM_ID = ?', [i], function(err, rows) {
@@ -32,16 +34,18 @@ module.exports = {
             console.log(rows);
             name = rows.NAME;
             cost = rows.COST;
+            type = rows.TYPE;
 
-            shop_name_string += `**${name}**\n\n`;
-            shop_cost_string += `**${cost}**\n\n`;
+            shop_name_string += `${name}\n\n`;
+            shop_cost_string += `${cost}\n\n`;
+            shop_type_string += `${type}\n\n`;
           }
         });
       }
       console.log('Display the shop');
       setTimeout(function() {
         SendShopString();
-      }, 20);
+      }, 30);
     }
 
     function SendShopString() {
@@ -59,6 +63,11 @@ module.exports = {
                 'value': shop_name_string,
                 'inline': true,
               },
+              /* {
+                'name': 'TYPE',
+                'value': shop_type_string,
+                'inline': true,
+              },*/
               {
                 'name': 'COST',
                 'value': shop_cost_string,
