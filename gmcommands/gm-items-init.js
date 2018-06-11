@@ -23,7 +23,7 @@ module.exports = {
 
 
 		db.run('INSERT INTO items(ITEM_ID, TYPE, NAME, DESCRIPTION, COST, ATTBONUS, DEFBONUS, DROPRATE) VALUES(?, ?, ?, ?, ?, ?, ?, ?)',
-		[0, 'ARMOUR', 'Boiled Leather ', 'Leather that has been treated to become tough and rigid. Shaped into something that might protect you... Might.', 32, 0, 4, 3.0],
+		[0, 'ARMOUR', 'Boiled Leather', 'Leather that has been treated to become tough and rigid. Shaped into something that might protect you... Might.', 32, 0, 4, 3.0],
 		function(err) {
 			if (err) {
 				return console.log(err.message);

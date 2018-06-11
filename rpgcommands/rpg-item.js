@@ -3,8 +3,7 @@ let item_type, item_name, item_description, item_cost, item_attbonus, item_defbo
 
 module.exports = {
 	name: 'rpg-item',
-	description: 'Info about a specific item in the GimmeRPG.',
-	aliases: ['rpgitem'],
+	description: 'Info about a specific item',
 	cooldown: 5,
 	execute(message, args) {
     const item_call = message.content;
@@ -28,13 +27,13 @@ module.exports = {
     }, 40);
 
     function GetAndDisplayItem() {
-      item_type = ' ';
-      item_name = ' ';
-      item_description = ' ';
-      item_cost = ' ';
-      item_attbonus = ' ';
-      item_defbonus = ' ';
-      item_droprate = ' ';
+			item_type = ' ';
+			item_name = ' ';
+			item_description = ' ';
+			item_cost = 0;
+			item_attbonus = 0;
+			item_defbonus = 0;
+			item_droprate = 0;
 
       if (!item_check) {
         message.channel.send('Please follow the command with an item name. Eg: **rpg-item Basic Sword**');

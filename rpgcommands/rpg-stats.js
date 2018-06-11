@@ -4,7 +4,7 @@ let name, gold, exp, level, armour, weapon, shield;
 
 module.exports = {
 	name: 'rpg-stats',
-	description: 'Get your stats from GimmeRPG',
+	description: 'Get your stats',
 	aliases: ['rpgstats'],
 	cooldown: 5,
 	execute(message, args) {

@@ -8,7 +8,7 @@ module.exports = {
 		const data = [];
 
 		if (!args.length) {
-			message.channel.send('Here\'s a list of all my commands:' + '\n\n' + commands.map(command => '**' + command.name + '**' + '  ' + '*' + command.description + '*').join('\n'));
+			message.channel.send('Here\'s a list of all my standard commands. For GimmeRPG commands, please use **rpg-help**' + '\n\n' + commands.map(command => '**' + command.name + '**' + '  ' + '*' + command.description + '*').join('\n'));
 
 		}
 		else {

@@ -18,6 +18,7 @@ const cooldowns = new Discord.Collection();
 
 client.on('ready', () => {
 	console.log('Ready!');
+	client.user.setActivity('?help for commands');
 });
 
 // Standard commands----------------------------------------------------------------------------------------------------

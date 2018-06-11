@@ -1,6 +1,6 @@
 module.exports = {
 	name: 'rpg-help',
-	description: 'List all of Gimbot\'s GimmeRPG commands and what they are for.',
+	description: 'List all of Gimbot\'s GimmeRPG commands and what they are for',
 	aliases: ['rpgcommands'],
 	cooldown: 5,
 	execute(message, args) {
