@@ -103,6 +103,33 @@ module.exports = {
 			console.log('Insert item into the items table.');
 		});
 
+		db.run('INSERT INTO items(ITEM_ID, TYPE, NAME, DESCRIPTION, COST, ATTBONUS, DEFBONUS, DROPRATE) VALUES(?, ?, ?, ?, ?, ?, ?, ?)',
+		[1000, 'SHIELD', 'None', '', 0, 0, 0, 0],
+		function(err) {
+			if (err) {
+				return console.log(err.message);
+			}
+			console.log('Insert item into the items table.');
+		});
+
+		db.run('INSERT INTO items(ITEM_ID, TYPE, NAME, DESCRIPTION, COST, ATTBONUS, DEFBONUS, DROPRATE) VALUES(?, ?, ?, ?, ?, ?, ?, ?)',
+		[1001, 'ARMOUR', 'Loincloth', 'A filthy rag worn by peasant scum', 0, 0, 0, 0],
+		function(err) {
+			if (err) {
+				return console.log(err.message);
+			}
+			console.log('Insert item into the items table.');
+		});
+
+		db.run('INSERT INTO items(ITEM_ID, TYPE, NAME, DESCRIPTION, COST, ATTBONUS, DEFBONUS, DROPRATE) VALUES(?, ?, ?, ?, ?, ?, ?, ?)',
+		[1002, 'WEAPON', 'Bare hands', 'Fists. You can punch with them', 0, 1, 0, 0],
+		function(err) {
+			if (err) {
+				return console.log(err.message);
+			}
+			console.log('Insert item into the items table.');
+		});
+
     db.close((err) => {
       if (err) {
         return console.error(err.message);

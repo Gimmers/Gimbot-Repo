@@ -24,7 +24,7 @@ client.on('ready', () => {
 // Standard commands----------------------------------------------------------------------------------------------------
 
 client.on('message', message => {
-	if (!message.content.startsWith(prefix)/* || message.author.bot*/) return;
+	if (!message.content.startsWith(prefix) || message.author.bot) return;
 
 	const args = message.content.slice(prefix.length).split(/ +/);
 	const commandName = args.shift().toLowerCase();
@@ -138,7 +138,7 @@ for (const file of rpgcommandFiles) {
 }
 
 client.on('message', message => {
-	if (!message.content.startsWith(prefix)/* || message.author.bot*/) return;
+	if (!message.content.startsWith(prefix) || message.author.bot) return;
 
 	const args = message.content.slice(prefix.length).split(/ +/);
 	const rpgcommandName = args.shift().toLowerCase();
@@ -160,6 +160,30 @@ client.on('message', message => {
 		}
 
 		return message.channel.send(reply);
+	}
+
+	if (!cooldowns.has(rpgcommand.name)) {
+		cooldowns.set(rpgcommand.name, new Discord.Collection());
+	}
+
+	const rpgnow = Date.now();
+	const rpgtimestamps = cooldowns.get(rpgcommand.name);
+	const rpgcooldownAmount = (rpgcommand.cooldown || 3) * 1000;
+
+	if (!rpgtimestamps.has(message.author.id)) {
+		rpgtimestamps.set(message.author.id, rpgnow);
+		setTimeout(() => rpgtimestamps.delete(message.author.id), rpgcooldownAmount);
+	}
+	else {
+		const expirationTime = rpgtimestamps.get(message.author.id) + rpgcooldownAmount;
+
+		if (rpgnow < expirationTime) {
+			const timeLeft = (expirationTime - rpgnow) / 1000;
+			return message.reply(`please wait ${timeLeft.toFixed(1)} more second(s) before reusing the \`${rpgcommand.name}\` command.`);
+		}
+
+		rpgtimestamps.set(message.author.id, rpgnow);
+		setTimeout(() => rpgtimestamps.delete(message.author.id), rpgcooldownAmount);
 	}
 
 
