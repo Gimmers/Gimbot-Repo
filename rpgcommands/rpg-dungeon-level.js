@@ -9,7 +9,7 @@ let level_change = false;
 module.exports = {
 	name: 'rpg-dungeon-level',
 	description: 'Venture into a dungeon for loot and exp',
-	cooldown: 43200,
+	cooldown: 10,
 
 	execute(message) {
     const level_call = message.content;
