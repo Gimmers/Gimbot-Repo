@@ -9,11 +9,11 @@ let level_change = false;
 module.exports = {
 	name: 'rpg-dungeon-level',
 	description: 'Venture into a dungeon for loot and exp',
-	cooldown: 10,
+	cooldown: 60,
 
 	execute(message) {
     const level_call = message.content;
-    const level_check = level_call.slice(18);
+    const level_check = parseInt(level_call.slice(18));
 
 		const dung_monsters = [];
 		const dung_monsters_stats = [];
@@ -30,7 +30,6 @@ module.exports = {
 
 	 if (min_dungeon_level < level_check <= max_dungeon_level) {
 		 DungeonScenario(level_check);
-		 GetPlayerStatSum();
 	 }
 	 else{
 		 message.channel.send('Please enter a dungeon between level\'s 1 and 5.');
@@ -54,10 +53,10 @@ module.exports = {
 				 dung_monsters_exp.push(monster_exp);
 			 }
 		 });
+
+		 GetPlayerStatSum();
+
 		 setTimeout(function() {
-			 console.log(dung_monsters);
-			 console.log(dung_monsters_stats);
-			 console.log(dung_monsters_minlvl);
 			 DungeonCombat(level, dung_monsters, dung_monsters_minlvl, player_stat_sum, dung_monsters_stats, dung_monsters_gold, dung_monsters_exp);
 		 }, 15);
    }
@@ -103,7 +102,7 @@ module.exports = {
 				 setTimeout(function() {
 					 player_stat_sum = player_armour_stat_sum + player_weapon_stat_sum + player_shield_stat_sum;
 					 console.log('player_stat_sum: ' + player_stat_sum);
-				 }, 15);
+				 }, 5);
 			 }
 		 });
 	 }
@@ -113,24 +112,46 @@ module.exports = {
 			 let total_gold_earned = 0;
 			 let total_exp_earned = 0;
 			 let monster;
+			 let log_chance_change = 0;
+			 let win_chance = 0;
+
 			 for (monster = 0; monster < monsters.length; monster++) {
-				 const difficulty_increase = (((level + 1) - min_lvl[monster]) / 10);
-				 const difficulty_multiplier = (2 + difficulty_increase);
+				 const difficulty_increase = ((level + 1) - min_lvl[monster]);
+				 console.log('level: ' + level);
+				 console.log('min_lvl[monster]: ' + min_lvl[monster]);
+				 console.log('difficulty_increase: ' + difficulty_increase);
+				 const difficulty_multiplier = (1 + (difficulty_increase / 10));
+				 console.log('difficulty_multiplier: ' + difficulty_multiplier);
 				 const base_win_chance = 0.5;
-				 const chance_change = (player_stats - monster_stats[monster] * difficulty_multiplier);
-				 const log_chance_change = Math.log(Math.abs(chance_change));
-				 const win_chance = base_win_chance + (log_chance_change / 10);
+				 const stat_difference = player_stats - monster_stats[monster];
+				 console.log('Player stats: ' + player_stats);
+				 console.log('Monster stats: ' + monster_stats[monster]);
+				 console.log('Stat difference: ' + stat_difference);
+				 const chance_change = (stat_difference * difficulty_multiplier);
+				 if (stat_difference < 0) {
+					 log_chance_change = Math.log(Math.abs(chance_change));
+					 win_chance = base_win_chance - (log_chance_change / 10);
+					 console.log('Log chance change = ' + log_chance_change + '   Win chance = ' + win_chance);
+				 }
+				 else if (stat_difference == 0) {
+					 log_chance_change = Math.log(Math.abs(chance_change + 1));
+					 win_chance = base_win_chance + (log_chance_change / 10);
+					 console.log('Log chance change = ' + log_chance_change + '   Win chance = ' + win_chance);
+				 }
+				 else if (stat_difference > 0) {
+					 log_chance_change = Math.log(Math.abs(chance_change + 1));
+					 win_chance = base_win_chance + (log_chance_change / 10);
+					 console.log('Log chance change = ' + log_chance_change + '   Win chance = ' + win_chance);
+				 }
 				 console.log('win chance: ' + win_chance);
 				 const fight_simulation_number = Math.random();
 				 console.log('outcome: ' + fight_simulation_number);
 				 if ((monster != (monsters.length - 1)) && fight_simulation_number <= win_chance) {
-					 console.log('This happens 1');
 					 message.channel.send(`You killed the **${monsters[monster]}**, gaining **${monster_gold[monster]} gold** and **${monster_exp[monster]} exp**!`);
 					 total_gold_earned += monster_gold[monster];
 					 total_exp_earned += monster_exp[monster];
 				 }
 				 else if((monster == (monsters.length - 1)) && fight_simulation_number <= win_chance) {
-					 console.log('This happens 2');
 					 message.channel.send(`You killed the **${monsters[monster]}**, gaining **${monster_gold[monster]} gold** and **${monster_exp[monster]} exp**!`);
 					 total_gold_earned += monster_gold[monster];
 					 total_exp_earned += monster_exp[monster];
@@ -139,7 +160,6 @@ module.exports = {
 					 return battle_over = true;
 				 }
 				 else{
-					 console.log('This happens 3');
 					 message.channel.send(`You were bested by the **${monsters[monster]}**!`);
 					 UpdatePlayerGoldExp(total_gold_earned, total_exp_earned);
 					 return battle_over = true;
@@ -223,9 +243,7 @@ module.exports = {
 		 setTimeout(function() {
 			 level_change = false;
 			 for (level = 1; level <= max_player_level; level++) {
-				 console.log('Level: ' + level + 'Player level: ' + player_level);
 				 level_up_requirement = first_level_up_requirement * Math.pow(level_multiplier, (level - 1));
-				 console.log('level up requirement: ' + level_up_requirement);
 
 				 if (player_level != (level - 1) && player_exp < level_up_requirement) {
 					 level_achieved = (level - 1);
@@ -233,21 +251,16 @@ module.exports = {
 						 level_achieved = 1;
 						 return level_change = false;
 					 }
-					 console.log('Level achieved 1: ' + level_achieved);
 
 					 return level_change = true;
 				 }
 				 else if (player_level == (level - 1) && player_exp < level_up_requirement) {
-					 console.log('no level change 2');
 
 					 return level_change = false;
 				 }
 				 else{
-					 console.log('no level change 1');
 					 level_change = false;
 				 }
-
-				 console.log('level change: ' + level_change);
 			 }
 		 }, 15);
 
@@ -258,7 +271,6 @@ module.exports = {
 	 }
 
 	 function UpdatePlayerLevel(level, change) {
-		 console.log('Change: ' + true);
 		 if (change == true) {
 			 db.run('UPDATE players SET LEVEL = ? WHERE ID = ?', [level, message.author.id], function(err) {
 				 if (err) {
@@ -269,9 +281,6 @@ module.exports = {
 					 return message.channel.send(`You have achieved **level ${level}**!`);
 				 }
 			 });
-		 }
-		 else{
-			 return console.log('no levelup 2');
 		 }
 	 }
  },
