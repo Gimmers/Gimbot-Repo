@@ -13,13 +13,14 @@ module.exports = {
 
 	execute(message) {
     const level_call = message.content;
-    const level_check = parseInt(level_call.slice(18));
+    const level_check = level_call.slice(18);
 
 		const dung_monsters = [];
 		const dung_monsters_stats = [];
 		const dung_monsters_minlvl = [];
 		const dung_monsters_gold = [];
 		const dung_monsters_exp = [];
+		let player_level = 1;
 
     const db = new sqlite3.Database('./db/gimmerpg.db', (err) => {
      if (err) {
@@ -36,6 +37,7 @@ module.exports = {
 	 }
 
    function DungeonScenario(level) {
+		 parseInt(level);
 		 db.each('SELECT * FROM monsters WHERE ? BETWEEN MINLVL AND MAXLVL', [level], function(err, rows) {
 			 if (err) {
 				 return console.error(err.message);
@@ -54,10 +56,20 @@ module.exports = {
 			 }
 		 });
 
+		 db.each('SELECT LEVEL FROM players WHERE ID = ?', [message.author.id], function(err, rows) {
+			 if (err) {
+				 return console.error(err.message);
+			 }
+			 else{
+				 player_level = rows.LEVEL;
+			 }
+		 });
+
 		 GetPlayerStatSum();
 
 		 setTimeout(function() {
-			 DungeonCombat(level, dung_monsters, dung_monsters_minlvl, player_stat_sum, dung_monsters_stats, dung_monsters_gold, dung_monsters_exp);
+			 console.log('player level: ' + player_level);
+			 DungeonCombat(level, dung_monsters, dung_monsters_minlvl, player_stat_sum, dung_monsters_stats, dung_monsters_gold, dung_monsters_exp, player_level);
 		 }, 15);
    }
 
@@ -107,7 +119,7 @@ module.exports = {
 		 });
 	 }
 
-	 function DungeonCombat(level, monsters, min_lvl, player_stats, monster_stats, monster_gold, monster_exp) {
+	 function DungeonCombat(level, monsters, min_lvl, player_stats, monster_stats, monster_gold, monster_exp, player_level) {
 		 if (!battle_over) {
 			 let total_gold_earned = 0;
 			 let total_exp_earned = 0;
@@ -123,7 +135,7 @@ module.exports = {
 				 const difficulty_multiplier = (1 + (difficulty_increase / 10));
 				 console.log('difficulty_multiplier: ' + difficulty_multiplier);
 				 const base_win_chance = 0.5;
-				 const stat_difference = player_stats - monster_stats[monster];
+				 const stat_difference = ((player_stats - monster_stats[monster]) + (player_level - level));
 				 console.log('Player stats: ' + player_stats);
 				 console.log('Monster stats: ' + monster_stats[monster]);
 				 console.log('Stat difference: ' + stat_difference);
@@ -147,21 +159,21 @@ module.exports = {
 				 const fight_simulation_number = Math.random();
 				 console.log('outcome: ' + fight_simulation_number);
 				 if ((monster != (monsters.length - 1)) && fight_simulation_number <= win_chance) {
-					 message.channel.send(`You killed the **${monsters[monster]}**, gaining **${monster_gold[monster]} gold** and **${monster_exp[monster]} exp**!`);
-					 total_gold_earned += monster_gold[monster];
-					 total_exp_earned += monster_exp[monster];
+					 message.channel.send(`You killed the **${monsters[monster]}**, gaining **${Math.round(monster_gold[monster] * (1 + difficulty_multiplier / 10))} gold** and **${Math.round(monster_exp[monster] * (1 + difficulty_multiplier / 30))} exp**!`);
+					 total_gold_earned += Math.round(monster_gold[monster] * (1 + difficulty_multiplier / 10));
+					 total_exp_earned += Math.round(monster_exp[monster] * (1 + difficulty_multiplier / 30));
 				 }
 				 else if((monster == (monsters.length - 1)) && fight_simulation_number <= win_chance) {
-					 message.channel.send(`You killed the **${monsters[monster]}**, gaining **${monster_gold[monster]} gold** and **${monster_exp[monster]} exp**!`);
-					 total_gold_earned += monster_gold[monster];
-					 total_exp_earned += monster_exp[monster];
+					 message.channel.send(`You killed the **${monsters[monster]}**, gaining **${Math.round(monster_gold[monster] * (1 + difficulty_multiplier / 10))} gold** and **${Math.round(monster_exp[monster] * (1 + difficulty_multiplier / 30))} exp**!`);
+					 total_gold_earned += Math.round(monster_gold[monster] * (1 + difficulty_multiplier / 10));
+					 total_exp_earned += Math.round(monster_exp[monster] * (1 + difficulty_multiplier / 30));
 
-					 UpdatePlayerGoldExp(total_gold_earned, total_exp_earned);
+					 UpdatePlayerGoldExp(total_gold_earned, total_exp_earned, difficulty_increase);
 					 return battle_over = true;
 				 }
 				 else{
 					 message.channel.send(`You were bested by the **${monsters[monster]}**!`);
-					 UpdatePlayerGoldExp(total_gold_earned, total_exp_earned);
+					 UpdatePlayerGoldExp(total_gold_earned, total_exp_earned, difficulty_increase);
 					 return battle_over = true;
 				 }
 			 }
