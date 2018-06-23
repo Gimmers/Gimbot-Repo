@@ -168,7 +168,7 @@ client.on('message', message => {
 
 	const rpgnow = Date.now();
 	const rpgtimestamps = cooldowns.get(rpgcommand.name);
-	const rpgcooldownAmount = (rpgcommand.cooldown || 3) * 1000;
+	const rpgcooldownAmount = (rpgcommand.cooldown) * 1000;
 
 	if (!rpgtimestamps.has(message.author.id)) {
 		rpgtimestamps.set(message.author.id, rpgnow);

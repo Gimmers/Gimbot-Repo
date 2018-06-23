@@ -5,7 +5,7 @@ module.exports = {
 	name: 'rpg-item',
 	description: 'Info about a specific item',
 	cooldown: 5,
-	execute(message, args) {
+	execute(message) {
     const item_call = message.content;
     const item_check = item_call.slice(10);
 
