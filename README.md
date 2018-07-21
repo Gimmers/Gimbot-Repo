@@ -1,6 +1,6 @@
 # Gimbot-Repo
 
-#### This code contains the setup code for Gimbot, a discord bot that allows discord users to #### play the GimmeRPG.
+#### This code contains the setup code for Gimbot, a discord bot that allows discord users to play the GimmeRPG.
 
 ## REQUIREMENTS:
 
