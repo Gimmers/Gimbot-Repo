@@ -1,3 +1,7 @@
+/*
+The purpose of this command is to initialise the monsters table for the GimmeRPG database.
+*/
+
 const sqlite3 = require('sqlite3').verbose();
 
 module.exports = {

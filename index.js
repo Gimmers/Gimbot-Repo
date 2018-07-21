@@ -1,7 +1,9 @@
+//External requirements
 const fs = require('fs');
 const Discord = require('discord.js');
 const { prefix, token, botMakerID } = require('./config.json');
 
+//Setup for command collections
 const client = new Discord.Client();
 client.commands = new Discord.Collection();
 client.gmcommands = new Discord.Collection();
@@ -24,6 +26,7 @@ client.on('ready', () => {
 // Standard commands----------------------------------------------------------------------------------------------------
 
 client.on('message', message => {
+	//Requirements to use a standard command. In this case, the command must begin with the prefix, and not be a bot.
 	if (!message.content.startsWith(prefix) || message.author.bot) return;
 
 	const args = message.content.slice(prefix.length).split(/ +/);
@@ -94,7 +97,8 @@ for (const file of gmcommandFiles) {
 }
 
 client.on('message', message => {
-	if (!message.content.startsWith(prefix) || message.author.bot || message.author.id != 129527614602870784) return;
+	//Requirements to use a GM command. In this case, the command must begin with the prefix, not be a bot, and be the GM.
+	if (!message.content.startsWith(prefix) || message.author.bot || message.author.id != botMakerID) return;
 
 	const args = message.content.slice(prefix.length).split(/ +/);
 	const gmcommandName = args.shift().toLowerCase();
@@ -138,6 +142,7 @@ for (const file of rpgcommandFiles) {
 }
 
 client.on('message', message => {
+	//Requirements to use a standard command. In this case, the command must begin with the prefix, and not be a bot.
 	if (!message.content.startsWith(prefix) || message.author.bot) return;
 
 	const args = message.content.slice(prefix.length).split(/ +/);

@@ -1,3 +1,8 @@
+/*
+	The purpose of this command is to allow the player to view the contents
+	of the GimmeRPG shop.
+*/
+
 const sqlite3 = require('sqlite3').verbose();
 
 let name, cost, type, shop_name_string, shop_cost_string/*, shop_type_string*/;

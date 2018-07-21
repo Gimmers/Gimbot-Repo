@@ -1,3 +1,8 @@
+/*
+	The purpose of this command is to give the player all of the available
+	information about a specific item in the items table.
+*/
+
 const sqlite3 = require('sqlite3').verbose();
 let item_type, item_name, item_description, item_cost, item_attbonus, item_defbonus, item_droprate;
 

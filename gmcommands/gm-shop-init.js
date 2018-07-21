@@ -1,3 +1,8 @@
+/*
+The purpose of this command is to initialise the shop table for the GimmeRPG database.
+The items that populate the shop are pulled from the items table.
+*/
+
 const sqlite3 = require('sqlite3').verbose();
 
 module.exports = {

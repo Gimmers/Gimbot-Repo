@@ -1,3 +1,9 @@
+/*
+	The purpose of this command is to allow the discord user to join the GimmeRPG.
+	This command adds them to the players table and populates it with the default stats
+	and items.
+*/
+
 const sqlite3 = require('sqlite3').verbose();
 
 let name, gold, exp, level, armour, weapon, shield;

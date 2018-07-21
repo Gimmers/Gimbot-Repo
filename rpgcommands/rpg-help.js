@@ -1,3 +1,8 @@
+/*
+	The purpose of this command is to allow a discord user to see the RPG-related
+	commands available to them.
+*/
+
 module.exports = {
 	name: 'rpg-help',
 	description: 'List all of Gimbot\'s GimmeRPG commands and what they are for',

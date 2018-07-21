@@ -1,3 +1,17 @@
+/*
+	The purpose of this command is to allow the player to enter a dungeon.
+
+	This code includes the ability to select a dungeon level, fight the monsters
+	in that dungeon, receive the gold and exp from successful kills, and then check
+	for a level up.
+
+	All of these changes are tracked in the players database.
+
+	To be added:
+		- Balance
+		- Item drops
+*/
+
 const sqlite3 = require('sqlite3').verbose();
 const max_dungeon_level = 35;
 const min_dungeon_level = 1;

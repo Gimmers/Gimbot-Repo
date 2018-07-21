@@ -1,3 +1,7 @@
+/*
+	The purpose of this command is to allow the player to see their stats, items and gold.
+*/
+
 const sqlite3 = require('sqlite3').verbose();
 
 let name, gold, exp, level, armour, weapon, shield;

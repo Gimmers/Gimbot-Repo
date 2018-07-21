@@ -1,3 +1,16 @@
+/*
+The purpose of this command is to allow a player to buy an item from the shop.
+
+This is only possible if the user has the gold required to buy the item.
+
+If they purchase the item, it will be added to their field in the players table.
+
+It will overwrite the item that was previously held in that players equivalent slot.
+
+Eg. If a player buys a new sword, it will overwrite their previous weapon regardless
+of whether it is better or worse stats-wise.
+*/
+
 const sqlite3 = require('sqlite3').verbose();
 let item_id, item_type, item_name, item_description, item_cost, item_attbonus, item_defbonus, item_droprate;
 let player_id, player_gold, player_armour, player_weapon, player_shield;
