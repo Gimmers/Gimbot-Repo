@@ -2,6 +2,7 @@
 
 #### This code contains the setup code for Gimbot, a discord bot that allows discord users to play the GimmeRPG.
 
+CONTENTS:
 1. Requirements
 2. Setup
 3. RPG description
