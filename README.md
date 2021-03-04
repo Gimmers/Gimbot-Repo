@@ -32,11 +32,10 @@ An example of the contents of this config file are as follows:
 
 ![image](https://user-images.githubusercontent.com/39972518/109939246-c710c300-7cc8-11eb-9d8a-32ebc2ea4ce6.png)
 
+![image](https://user-images.githubusercontent.com/39972518/109939014-8ca72600-7cc8-11eb-856b-740fcbe0c8b7.png)
+
 ![image](https://user-images.githubusercontent.com/39972518/109938810-579ad380-7cc8-11eb-9d56-8add9e083772.png)
 
 ![image](https://user-images.githubusercontent.com/39972518/109938924-739e7500-7cc8-11eb-9382-9a71e017c717.png)
-
-![image](https://user-images.githubusercontent.com/39972518/109939014-8ca72600-7cc8-11eb-856b-740fcbe0c8b7.png)
-
 
 ## 4. FUTURE CHANGES:
