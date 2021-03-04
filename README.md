@@ -38,4 +38,8 @@ An example of the contents of this config file are as follows:
 
 ![image](https://user-images.githubusercontent.com/39972518/109938924-739e7500-7cc8-11eb-9382-9a71e017c717.png)
 
+![image](https://user-images.githubusercontent.com/39972518/109939485-03dcba00-7cc9-11eb-9af2-fc6d6b185efd.png)
+
+![image](https://user-images.githubusercontent.com/39972518/109939524-0f2fe580-7cc9-11eb-80f9-7559c37b7906.png)
+
 ## 4. FUTURE CHANGES:
