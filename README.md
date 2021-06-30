@@ -20,7 +20,7 @@ An example of the contents of this config file are as follows:
 
 {
   "prefix":"!",
-  "token":"FDJPfd0DFSxLOL5NANxKEK0.DrPEPE.onRLaok1meWjQ55TZ7Tlkrlq-FP",
+  "token":"FDJPfd0DFSxWjQ55TZ7Tlkrlq-FP",
   "botMakerID":"12345678901234567890"
 }
 
